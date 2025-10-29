@@ -248,15 +248,16 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            gap: 12px;
             margin-top: 20px;
         }
 
         .stat-item {
             text-align: center;
-            padding: 16px;
+            padding: 12px 8px;
             background: rgba(255,255,255,0.02);
             border-radius: 8px;
+            min-width: 0;
         }
 
         .stat-value {
@@ -269,21 +270,9 @@
             font-size: 11px;
             color: #666;
             text-transform: uppercase;
-        }
-
-        .progress-bar {
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
             overflow: hidden;
-            margin-top: 8px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4ADE80, #22C55E);
-            border-radius: 2px;
-            transition: width 0.3s;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .tab-container {
@@ -393,12 +382,12 @@
                 </div>
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <div class="stat-value">92.3%</div>
-                        <div class="stat-label">Best F1</div>
+                        <div class="stat-value">0.847</div>
+                        <div class="stat-label">Best Pearson</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">0.847</div>
-                        <div class="stat-label">Mean AUC</div>
+                        <div class="stat-value">0.763</div>
+                        <div class="stat-label">Mean Pearson</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">3.2M</div>
@@ -418,18 +407,15 @@
                 </div>
                 <div class="chart-container" style="position: relative;">
                     <canvas id="performanceChart"></canvas>
-                    <div style="position: absolute; left: -8px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 10px; color: #666;">F1 Score</div>
+                    <div style="position: absolute; left: -8px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 10px; color: #666;">Pearson Correlation</div>
                     <div style="position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #666;">Competition Day</div>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 73%"></div>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                <div style="display: flex; justify-content: space-between; margin-top: 16px;">
                     <span style="font-size: 11px; color: #666;">Baseline: 0.621</span>
-                    <span style="font-size: 11px; color: #4ADE80;">Current: 0.923</span>
+                    <span style="font-size: 11px; color: #4ADE80;">Current: 0.847</span>
                 </div>
                 <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05);">
-                    <div style="font-size: 11px; color: #666; line-height: 1.4;">Top model F1 score progression over time. Measures prediction accuracy for cell state after perturbation.</div>
+                    <div style="font-size: 11px; color: #666; line-height: 1.4;">Top model Pearson correlation over time. Measures how well predicted gene expression matches actual post-perturbation expression across all genes.</div>
                 </div>
             </div>
 
@@ -481,6 +467,12 @@
                 </div>
             </div>
             
+            <div style="margin-bottom: 16px; padding: 12px; background: rgba(74, 222, 128, 0.05); border-radius: 8px; border-left: 3px solid #4ADE80;">
+                <div style="font-size: 11px; color: #999; line-height: 1.5;">
+                    <strong style="color: #4ADE80;">Pearson correlation</strong> measures linear relationship between predicted and actual gene expression (0.0 = no correlation, 1.0 = perfect). Scores above 0.80 indicate strong predictive performance.
+                </div>
+            </div>
+            
             <div class="tab-container">
                 <div class="tab active">Public Leaderboard</div>
                 <div class="tab">Private Test</div>
@@ -491,49 +483,49 @@
                 <div class="leaderboard-row leaderboard-header">
                     <div>Rank</div>
                     <div>Team</div>
-                    <div>F1 Score</div>
-                    <div>AUC-ROC</div>
-                    <div>MSE</div>
+                    <div>Pearson Corr</div>
+                    <div>Spearman Corr</div>
+                    <div>MSE (log)</div>
                     <div>Submissions</div>
                 </div>
                 <div class="leaderboard-row">
                     <div class="rank green">1</div>
                     <div class="team-name">DeepCell Dynamics</div>
-                    <div class="score green">0.9234</div>
-                    <div class="score">0.9156</div>
-                    <div class="score">0.0342</div>
+                    <div class="score green">0.8472</div>
+                    <div class="score">0.8156</div>
+                    <div class="score">0.1342</div>
                     <div style="color: #666; font-size: 14px;">247</div>
                 </div>
                 <div class="leaderboard-row">
                     <div class="rank green">2</div>
                     <div class="team-name">BioTransformer Lab</div>
-                    <div class="score green">0.9198</div>
-                    <div class="score">0.9089</div>
-                    <div class="score">0.0367</div>
+                    <div class="score green">0.8398</div>
+                    <div class="score">0.8089</div>
+                    <div class="score">0.1467</div>
                     <div style="color: #666; font-size: 14px;">189</div>
                 </div>
                 <div class="leaderboard-row">
                     <div class="rank green">3</div>
                     <div class="team-name">Neural Perturbation</div>
-                    <div class="score orange">0.9145</div>
-                    <div class="score">0.9012</div>
-                    <div class="score">0.0398</div>
+                    <div class="score orange">0.8245</div>
+                    <div class="score">0.7912</div>
+                    <div class="score">0.1598</div>
                     <div style="color: #666; font-size: 14px;">312</div>
                 </div>
                 <div class="leaderboard-row">
                     <div class="rank">4</div>
                     <div class="team-name">CellVAE Collective</div>
-                    <div class="score orange">0.9087</div>
-                    <div class="score">0.8967</div>
-                    <div class="score">0.0412</div>
+                    <div class="score orange">0.8187</div>
+                    <div class="score">0.7867</div>
+                    <div class="score">0.1712</div>
                     <div style="color: #666; font-size: 14px;">156</div>
                 </div>
                 <div class="leaderboard-row">
                     <div class="rank">5</div>
                     <div class="team-name">Genomic Gradient</div>
-                    <div class="score orange">0.9023</div>
-                    <div class="score">0.8934</div>
-                    <div class="score">0.0445</div>
+                    <div class="score orange">0.8023</div>
+                    <div class="score">0.7734</div>
+                    <div class="score">0.1845</div>
                     <div style="color: #666; font-size: 14px;">278</div>
                 </div>
             </div>
@@ -637,7 +629,7 @@
             <div style="margin-bottom: 20px; padding: 16px; background: rgba(255,255,255,0.02); border-radius: 8px;">
                 <div style="font-size: 12px; color: #666; margin-bottom: 8px;">COMPETITION TRACKS</div>
                 <div style="font-size: 13px; line-height: 1.6; color: #999;">
-                    <strong style="color: #fff;">RNA-seq Track:</strong> Single-cell RNA sequencing data measuring gene expression across thousands of genes per cell. Models predict cell responses to chemical/genetic perturbations.<br>
+                    <strong style="color: #fff;">RNA-seq Track:</strong> Single-cell RNA sequencing data measuring gene expression across thousands of genes per cell. Models predict genome-wide gene expression changes in response to chemical/genetic perturbations. Evaluated on held-out perturbations not seen during training.<br>
                     <strong style="color: #fff;">Coming 2026:</strong> Multimodal track combining RNA + protein expression (CITE-seq)
                 </div>
             </div>
@@ -698,31 +690,80 @@
     </main>
 
     <script>
-        // Add UMAP visualization dots
+        // Add realistic UMAP visualization with biological patterns
         const umapPlot = document.getElementById('umapPlot');
         const colors = ['#4ADE80', '#FB923C', '#60A5FA', '#C084FC'];
+        const cellTypes = [
+            { name: 'T Cells', center: [30, 35], spread: 18, count: 70, subclusters: 2 },
+            { name: 'B Cells', center: [35, 65], spread: 15, count: 55, subclusters: 1 },
+            { name: 'Monocytes', center: [70, 30], spread: 22, count: 65, subclusters: 1 },
+            { name: 'NK Cells', center: [50, 50], spread: 14, count: 50, subclusters: 1 }
+        ];
         
-        // Generate random clustered points within bounds
-        for (let cluster = 0; cluster < 4; cluster++) {
-            const centerX = 25 + (cluster % 2) * 50 + Math.random() * 10;
-            const centerY = 25 + Math.floor(cluster / 2) * 50 + Math.random() * 10;
-            
-            for (let i = 0; i < 60; i++) {
+        // Helper function for gaussian distribution
+        function gaussianRandom(mean, stdDev) {
+            let u1 = Math.random();
+            let u2 = Math.random();
+            let z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+            return z0 * stdDev + mean;
+        }
+        
+        // Generate cells for each type
+        cellTypes.forEach((cellType, clusterIdx) => {
+            // Main cluster
+            for (let i = 0; i < cellType.count; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'dot';
-                const spread = 20;
-                let x = centerX + (Math.random() - 0.5) * spread;
-                let y = centerY + (Math.random() - 0.5) * spread;
                 
-                // Ensure dots stay within bounds
-                x = Math.max(2, Math.min(98, x));
-                y = Math.max(2, Math.min(98, y));
+                // Use gaussian distribution for more realistic clustering
+                let x = gaussianRandom(cellType.center[0], cellType.spread);
+                let y = gaussianRandom(cellType.center[1], cellType.spread);
+                
+                // Add subclusters for T cells (CD4+ and CD8+)
+                if (clusterIdx === 0 && i < 35) {
+                    x = gaussianRandom(cellType.center[0] - 8, 8);
+                    y = gaussianRandom(cellType.center[1] + 5, 8);
+                }
+                
+                // Varying opacity for depth effect
+                const opacity = 0.5 + Math.random() * 0.4;
+                
+                // Keep within bounds
+                x = Math.max(5, Math.min(95, x));
+                y = Math.max(5, Math.min(95, y));
                 
                 dot.style.left = `${x}%`;
                 dot.style.top = `${y}%`;
-                dot.style.background = colors[cluster];
+                dot.style.background = colors[clusterIdx];
+                dot.style.opacity = opacity;
                 umapPlot.appendChild(dot);
             }
+        });
+        
+        // Add transitional cells between T cells and NK cells
+        for (let i = 0; i < 15; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            const t = i / 15;
+            let x = 30 + (50 - 30) * t + (Math.random() - 0.5) * 8;
+            let y = 35 + (50 - 35) * t + (Math.random() - 0.5) * 8;
+            dot.style.left = `${x}%`;
+            dot.style.top = `${y}%`;
+            // Blend colors for transitional cells
+            dot.style.background = t < 0.5 ? colors[0] : colors[3];
+            dot.style.opacity = 0.4;
+            umapPlot.appendChild(dot);
+        }
+        
+        // Add a few outliers (common in real data)
+        for (let i = 0; i < 8; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.left = `${Math.random() * 90 + 5}%`;
+            dot.style.top = `${Math.random() * 90 + 5}%`;
+            dot.style.background = colors[Math.floor(Math.random() * 4)];
+            dot.style.opacity = 0.3;
+            umapPlot.appendChild(dot);
         }
 
         // Add simple line chart visualization
@@ -736,7 +777,7 @@
             ctx.lineWidth = 2;
             ctx.beginPath();
             
-            const points = [0.62, 0.71, 0.78, 0.82, 0.85, 0.87, 0.89, 0.91, 0.92, 0.923];
+            const points = [0.62, 0.68, 0.73, 0.76, 0.79, 0.81, 0.83, 0.84, 0.845, 0.847];
             const width = canvas.width;
             const height = canvas.height;
             
