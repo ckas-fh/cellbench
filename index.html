@@ -272,7 +272,32 @@
             text-transform: uppercase;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        /* Responsive adjustments for stat labels */
+        @media (max-width: 768px) {
+            .stats-grid {
+                gap: 8px;
+            }
+            
+            .stat-item {
+                padding: 10px 6px;
+            }
+            
+            .stat-label {
+                font-size: 10px;
+            }
+            
+            .stat-value {
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .stat-label {
+                font-size: 10px;
+            }
         }
 
         .tab-container {
@@ -383,11 +408,11 @@
                 <div class="stats-grid">
                     <div class="stat-item">
                         <div class="stat-value">0.847</div>
-                        <div class="stat-label">Best Pearson</div>
+                        <div class="stat-label">Best Corr</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">0.763</div>
-                        <div class="stat-label">Mean Pearson</div>
+                        <div class="stat-label">Mean Corr</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">3.2M</div>
